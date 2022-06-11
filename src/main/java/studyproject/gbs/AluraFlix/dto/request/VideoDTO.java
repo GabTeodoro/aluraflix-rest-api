@@ -8,6 +8,8 @@ import studyproject.gbs.AluraFlix.entity.Video;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -22,17 +24,22 @@ public class VideoDTO {
     public VideoDTO(Video video) {
         this.id = video.getId();
         this.title = video.getTitle();
-        this.description = video.getDescription();;
+        this.description = video.getDescription();
+        ;
         this.url = video.getUrl();
     }
 
-    public static List<VideoDTO> toVideoDTO(List<Video> videos){
-        List<VideoDTO> videosDTO = new ArrayList<>();
+//    public static List<VideoDTO> toVideoDTO(List<Video> videos){
+//        List<VideoDTO> videosDTO = new ArrayList<>();
+//
+//        for (Video video: videos) {
+//            videosDTO.add(new VideoDTO(video));
+//        }
+//
+//        return videosDTO;
+//    }
 
-        for (Video video: videos) {
-            videosDTO.add(new VideoDTO(video));
-        }
-
-        return videosDTO;
+    public static List<VideoDTO> toVideoDTO(List<Video> videos) {
+        return videos.stream().map(VideoDTO::new).collect(Collectors.toList());
     }
 }
