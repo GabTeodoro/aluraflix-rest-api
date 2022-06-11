@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import studyproject.gbs.AluraFlix.dto.request.VideoDTO;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -12,7 +13,6 @@ import java.util.Objects;
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class Video {
 
     @Id
@@ -27,6 +27,10 @@ public class Video {
 
     @Column(nullable = false)
     private String url;
+
+    public Video() {
+
+    }
 
     public Long getId() {
         return id;
@@ -58,5 +62,12 @@ public class Video {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public void toVideo(VideoDTO videoDTO) {
+
+        this.description = videoDTO.getDescription();
+        this.title = videoDTO.getTitle();
+        this.url = videoDTO.getUrl();
     }
 }
