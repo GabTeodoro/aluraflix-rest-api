@@ -42,16 +42,6 @@ public class VideoDTO {
         this.url = video.getUrl();
     }
 
-//    public static List<VideoDTO> toVideoDTO(List<Video> videos){
-//        List<VideoDTO> videosDTO = new ArrayList<>();
-//
-//        for (Video video: videos) {
-//            videosDTO.add(new VideoDTO(video));
-//        }
-//
-//        return videosDTO;
-//    }
-
     public static List<VideoDTO> toVideoDTO(List<Video> videos) {
         return videos.stream().map(VideoDTO::new).collect(Collectors.toList());
     }
