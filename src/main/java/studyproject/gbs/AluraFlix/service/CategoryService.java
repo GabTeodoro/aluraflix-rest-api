@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import studyproject.gbs.AluraFlix.dto.request.CategoryDTO;
 import studyproject.gbs.AluraFlix.dto.response.CategoryResponse;
+import studyproject.gbs.AluraFlix.dto.response.VideoResponse;
 import studyproject.gbs.AluraFlix.entity.Category;
 import studyproject.gbs.AluraFlix.exception.CategoryNotFoundException;
 import studyproject.gbs.AluraFlix.repository.CategoryRepository;
@@ -36,6 +37,22 @@ public class CategoryService {
         category.toCategory(categoryDTO);
         repository.save(category);
         return setMessageResponse("Category created with ID ", category.getId());
+    }
+
+    public CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO) throws CategoryNotFoundException {
+
+        Category category = verifyIfExists(id);
+        category.toCategory(categoryDTO);
+        repository.save(category);
+
+        return new CategoryDTO(category);
+    }
+
+    public CategoryResponse deleteCategoryById(Long id) throws CategoryNotFoundException {
+
+        verifyIfExists(id);
+        repository.deleteById(id);
+        return setMessageResponse("Deleted category with ID ", id);
     }
 
     private CategoryResponse setMessageResponse(String message, Long id) {

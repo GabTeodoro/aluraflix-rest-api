@@ -38,7 +38,8 @@ public class VideoController {
     }
 
     @PutMapping("/{id}")
-    public VideoResponse updateVideo(@PathVariable Long id, @RequestBody @Valid VideoDTO videoDTO) throws VideoNotFoundException {
+    public VideoResponse updateVideo(@PathVariable Long id, @RequestBody @Valid VideoDTO videoDTO)
+            throws VideoNotFoundException {
         return service.updateVideo(id, videoDTO);
     }
 
