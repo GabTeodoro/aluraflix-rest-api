@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import studyproject.gbs.AluraFlix.dto.request.CategoryDTO;
 
 import javax.persistence.*;
 
@@ -23,4 +24,10 @@ public class Category {
 
     @Column(nullable = false)
     private String color;
+
+    public void toCategory(CategoryDTO categoryDTO) {
+        this.id = categoryDTO.getId();
+        this.title = categoryDTO.getTitle();
+        this.color = categoryDTO.getColor();
+    }
 }

@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class VideoResponse {
+public class CategoryResponse {
 
-   private String message;
-
+    private String message;
 }

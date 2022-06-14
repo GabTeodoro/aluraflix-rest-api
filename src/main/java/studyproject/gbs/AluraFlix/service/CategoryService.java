@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import studyproject.gbs.AluraFlix.dto.request.CategoryDTO;
+import studyproject.gbs.AluraFlix.dto.response.CategoryResponse;
 import studyproject.gbs.AluraFlix.entity.Category;
 import studyproject.gbs.AluraFlix.exception.CategoryNotFoundException;
 import studyproject.gbs.AluraFlix.repository.CategoryRepository;
@@ -27,6 +28,18 @@ public class CategoryService {
 
         Category category = verifyIfExists(id);
         return new CategoryDTO(category);
+    }
+
+    public CategoryResponse createCategory(CategoryDTO categoryDTO) {
+
+        Category category = new Category();
+        category.toCategory(categoryDTO);
+        repository.save(category);
+        return setMessageResponse("Category created with ID ", category.getId());
+    }
+
+    private CategoryResponse setMessageResponse(String message, Long id) {
+        return CategoryResponse.builder().message(message + id).build();
     }
 
     private Category verifyIfExists(Long id) throws CategoryNotFoundException {
