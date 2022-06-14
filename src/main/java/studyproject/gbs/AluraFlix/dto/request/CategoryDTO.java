@@ -33,7 +33,7 @@ public class CategoryDTO {
         this.color = category.getColor();
     }
 
-    public static List<CategoryDTO> categoryToDTO(List<Category> categories) {
+    public static List<CategoryDTO> ToCategoryDTO(List<Category> categories) {
         return categories.stream().map(CategoryDTO::new).collect(Collectors.toList());
     }
 }
