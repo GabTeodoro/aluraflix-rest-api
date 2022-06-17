@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import studyproject.gbs.AluraFlix.dto.request.CategoryDTO;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,6 +25,9 @@ public class Category {
 
     @Column(nullable = false)
     private String color;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch = FetchType.LAZY)
+    private List<Video> videos;
 
     public void toCategory(CategoryDTO categoryDTO) {
         this.id = categoryDTO.getId();

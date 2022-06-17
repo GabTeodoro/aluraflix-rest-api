@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import studyproject.gbs.AluraFlix.dto.request.VideoDTO;
 import studyproject.gbs.AluraFlix.dto.response.VideoResponse;
+import studyproject.gbs.AluraFlix.exception.CategoryNotFoundException;
 import studyproject.gbs.AluraFlix.exception.VideoNotFoundException;
 import studyproject.gbs.AluraFlix.service.VideoService;
 
@@ -33,19 +34,18 @@ public class VideoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public VideoResponse createVideo(@RequestBody @Valid VideoDTO videoDTO){
+    public VideoResponse createVideo(@RequestBody @Valid VideoDTO videoDTO) throws CategoryNotFoundException {
         return service.createVideo(videoDTO);
     }
 
     @PutMapping("/{id}")
     public VideoResponse updateVideo(@PathVariable Long id, @RequestBody @Valid VideoDTO videoDTO)
-            throws VideoNotFoundException {
+            throws VideoNotFoundException, CategoryNotFoundException {
         return service.updateVideo(id, videoDTO);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteVideoById(@PathVariable Long id) throws VideoNotFoundException {
-        service.deleteVideoById(id);
+    public VideoResponse deleteVideoById(@PathVariable Long id) throws VideoNotFoundException {
+        return service.deleteVideoById(id);
     }
 }

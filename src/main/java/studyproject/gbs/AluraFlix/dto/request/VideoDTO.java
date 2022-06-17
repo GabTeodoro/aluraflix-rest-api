@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import studyproject.gbs.AluraFlix.entity.Category;
 import studyproject.gbs.AluraFlix.entity.Video;
 
 import javax.validation.constraints.NotEmpty;
@@ -34,11 +35,14 @@ public class VideoDTO {
     @NotEmpty
     private String url;
 
+    private Long categoryId;
+
     public VideoDTO(Video video) {
         this.id = video.getId();
         this.title = video.getTitle();
         this.description = video.getDescription();
         this.url = video.getUrl();
+        this.categoryId = video.getCategory().getId();
     }
 
     public static List<VideoDTO> toVideoDTO(List<Video> videos) {

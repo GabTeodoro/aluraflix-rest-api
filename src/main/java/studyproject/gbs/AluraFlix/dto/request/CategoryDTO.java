@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import studyproject.gbs.AluraFlix.entity.Category;
+import studyproject.gbs.AluraFlix.entity.Video;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -26,6 +27,8 @@ public class CategoryDTO {
     @NotNull
     @NotEmpty
     private String color;
+
+    private List<Video> videos;
 
     public CategoryDTO(Category category) {
         this.id = category.getId();

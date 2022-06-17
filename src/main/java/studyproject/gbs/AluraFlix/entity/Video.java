@@ -29,6 +29,9 @@ public class Video {
     @Column(nullable = false)
     private String url;
 
+    @ManyToOne()
+    private Category category;
+
     public void toVideo(VideoDTO videoDTO) {
 
         this.description = videoDTO.getDescription();
