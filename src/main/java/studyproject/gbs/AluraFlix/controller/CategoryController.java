@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import studyproject.gbs.AluraFlix.dto.request.CategoryDTO;
+import studyproject.gbs.AluraFlix.dto.request.VideoDTO;
 import studyproject.gbs.AluraFlix.dto.response.CategoryResponse;
 import studyproject.gbs.AluraFlix.dto.response.VideoResponse;
 import studyproject.gbs.AluraFlix.exception.CategoryNotFoundException;
@@ -42,5 +43,11 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public CategoryResponse deleteCategoryById(@PathVariable Long id) throws CategoryNotFoundException {
         return service.deleteCategoryById(id);
+    }
+
+    @GetMapping("/{id}/videos")
+    public List<VideoDTO> findVideosPerCategory(@PathVariable Long id)
+            throws CategoryNotFoundException {
+        return service.findVideosPerCategory(id);
     }
 }

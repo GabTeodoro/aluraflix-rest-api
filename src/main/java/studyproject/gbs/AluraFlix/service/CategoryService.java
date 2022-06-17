@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import studyproject.gbs.AluraFlix.dto.request.CategoryDTO;
+import studyproject.gbs.AluraFlix.dto.request.VideoDTO;
 import studyproject.gbs.AluraFlix.dto.response.CategoryResponse;
 import studyproject.gbs.AluraFlix.dto.response.VideoResponse;
 import studyproject.gbs.AluraFlix.entity.Category;
+import studyproject.gbs.AluraFlix.entity.Video;
 import studyproject.gbs.AluraFlix.exception.CategoryNotFoundException;
 import studyproject.gbs.AluraFlix.repository.CategoryRepository;
 
@@ -55,6 +57,11 @@ public class CategoryService {
         return setMessageResponse("Deleted category with ID ", id);
     }
 
+    public List<VideoDTO> findVideosPerCategory(Long id) throws CategoryNotFoundException {
+        verifyIfExists(id);
+        List<Video> videosPerCategory = repository.findVideosPerCategory(id);
+        return VideoDTO.toVideoDTO(videosPerCategory);
+    }
     private CategoryResponse setMessageResponse(String message, Long id) {
         return CategoryResponse.builder().message(message + id).build();
     }
