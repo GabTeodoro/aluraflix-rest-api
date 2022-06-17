@@ -23,8 +23,14 @@ public class VideoController {
     private VideoService service;
 
     @GetMapping
-    public List<VideoDTO> listAll(){
-        return service.listAll();
+    public List<VideoDTO> listAll(@RequestParam(required = false) String search){
+
+        if(search == null){
+            return service.listAll();
+        }
+
+        return service.findByTitle(search);
+
     }
 
     @GetMapping("/{id}")

@@ -68,6 +68,12 @@ public class VideoService {
         return setMessageResponse("Deleted video with ID ", id);
     }
 
+    public List<VideoDTO> findByTitle(String title) {
+
+        List<Video> videos = repository.findByTitle(title);
+        return VideoDTO.toVideoDTO(videos);
+    }
+
     private VideoResponse setMessageResponse(String message, Long id) {
         return VideoResponse.builder().message(message + id).build();
     }
