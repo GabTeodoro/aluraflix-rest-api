@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
 import studyproject.gbs.AluraFlix.entity.Category;
 import studyproject.gbs.AluraFlix.entity.Video;
 
@@ -45,7 +46,7 @@ public class VideoDTO {
         this.categoryId = video.getCategory().getId();
     }
 
-    public static List<VideoDTO> toVideoDTO(List<Video> videos) {
-        return videos.stream().map(VideoDTO::new).collect(Collectors.toList());
+    public static Page<VideoDTO> toVideoDTO(Page<Video> videos) {
+        return videos.map(VideoDTO::new);
     }
 }

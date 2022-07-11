@@ -3,8 +3,12 @@ package studyproject.gbs.AluraFlix.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 import studyproject.gbs.AluraFlix.dto.request.VideoDTO;
 import studyproject.gbs.AluraFlix.dto.response.VideoResponse;
 import studyproject.gbs.AluraFlix.exception.CategoryNotFoundException;
@@ -23,35 +27,36 @@ public class VideoController {
     private VideoService service;
 
     @GetMapping
-    public List<VideoDTO> listAll(@RequestParam(required = false) String search){
+    public Page<VideoDTO> listAll(@RequestParam(required = false) String search,
+                                  @PageableDefault(page = 0, size = 5) Pageable pageable){
 
         if(search == null){
-            return service.listAll();
+            return service.listAll(pageable);
         }
 
-        return service.findByTitle(search);
+        return service.findByTitle(search, pageable);
 
     }
 
     @GetMapping("/{id}")
-    public VideoDTO findById(@PathVariable Long id) throws VideoNotFoundException {
+    public ResponseEntity<VideoDTO> findById(@PathVariable Long id) throws VideoNotFoundException {
         return service.findById(id);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public VideoResponse createVideo(@RequestBody @Valid VideoDTO videoDTO) throws CategoryNotFoundException {
-        return service.createVideo(videoDTO);
+    public ResponseEntity<VideoDTO> createVideo(@RequestBody @Valid VideoDTO videoDTO,
+                                                UriComponentsBuilder uriBuilder) throws CategoryNotFoundException {
+        return service.createVideo(videoDTO, uriBuilder);
     }
 
     @PutMapping("/{id}")
-    public VideoResponse updateVideo(@PathVariable Long id, @RequestBody @Valid VideoDTO videoDTO)
+    public ResponseEntity<VideoResponse> updateVideo(@PathVariable Long id, @RequestBody @Valid VideoDTO videoDTO)
             throws VideoNotFoundException, CategoryNotFoundException {
         return service.updateVideo(id, videoDTO);
     }
 
     @DeleteMapping("/{id}")
-    public VideoResponse deleteVideoById(@PathVariable Long id) throws VideoNotFoundException {
+    public ResponseEntity<VideoResponse> deleteVideoById(@PathVariable Long id) throws VideoNotFoundException {
         return service.deleteVideoById(id);
     }
 }

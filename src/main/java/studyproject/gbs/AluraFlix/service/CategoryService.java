@@ -2,6 +2,9 @@ package studyproject.gbs.AluraFlix.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import studyproject.gbs.AluraFlix.dto.request.CategoryDTO;
 import studyproject.gbs.AluraFlix.dto.request.VideoDTO;
@@ -22,18 +25,18 @@ public class CategoryService {
     @Autowired
     private CategoryRepository repository;
 
-    public List<CategoryDTO> findAll() {
-        List<Category> categories = repository.findAll();
+    public Page<CategoryDTO> findAll(Pageable pageable) {
+        Page<Category> categories = repository.findAll(pageable);
         return CategoryDTO.ToCategoryDTO(categories);
     }
 
-    public CategoryDTO findById(Long id) throws CategoryNotFoundException {
+    public ResponseEntity<CategoryDTO> findById(Long id) throws CategoryNotFoundException {
 
         Category category = verifyIfExists(id);
-        return new CategoryDTO(category);
+        return ResponseEntity.ok(new CategoryDTO(category));
     }
 
-    public CategoryResponse createCategory(CategoryDTO categoryDTO) {
+    public ResponseEntity<CategoryResponse> createCategory(CategoryDTO categoryDTO) {
 
         Category category = new Category();
         category.toCategory(categoryDTO);
@@ -41,29 +44,29 @@ public class CategoryService {
         return setMessageResponse("Category created with ID ", category.getId());
     }
 
-    public CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO) throws CategoryNotFoundException {
+    public ResponseEntity<CategoryDTO> updateCategory(Long id, CategoryDTO categoryDTO) throws CategoryNotFoundException {
 
         Category category = verifyIfExists(id);
         category.toCategory(categoryDTO);
         repository.save(category);
 
-        return new CategoryDTO(category);
+        return ResponseEntity.ok(new CategoryDTO(category));
     }
 
-    public CategoryResponse deleteCategoryById(Long id) throws CategoryNotFoundException {
+    public ResponseEntity<CategoryResponse> deleteCategoryById(Long id) throws CategoryNotFoundException {
 
         verifyIfExists(id);
         repository.deleteById(id);
         return setMessageResponse("Deleted category with ID ", id);
     }
 
-    public List<VideoDTO> findVideosPerCategory(Long id) throws CategoryNotFoundException {
+    public Page<VideoDTO> findVideosPerCategory(Long id, Pageable pageable) throws CategoryNotFoundException {
         verifyIfExists(id);
-        List<Video> videosPerCategory = repository.findVideosPerCategory(id);
+        Page<Video> videosPerCategory = repository.findVideosPerCategory(id, pageable);
         return VideoDTO.toVideoDTO(videosPerCategory);
     }
-    private CategoryResponse setMessageResponse(String message, Long id) {
-        return CategoryResponse.builder().message(message + id).build();
+    private ResponseEntity<CategoryResponse> setMessageResponse(String message, Long id) {
+        return ResponseEntity.ok(CategoryResponse.builder().message(message + id).build());
     }
 
     private Category verifyIfExists(Long id) throws CategoryNotFoundException {

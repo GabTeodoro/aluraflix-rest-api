@@ -29,9 +29,11 @@ public class Category {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch = FetchType.LAZY)
     private List<Video> videos;
 
-    public void toCategory(CategoryDTO categoryDTO) {
+    public Category toCategory(CategoryDTO categoryDTO) {
         this.id = categoryDTO.getId();
         this.title = categoryDTO.getTitle();
         this.color = categoryDTO.getColor();
+
+        return this;
     }
 }
