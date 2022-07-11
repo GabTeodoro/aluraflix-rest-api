@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import studyproject.gbs.AluraFlix.dto.request.CategoryDTO;
 import studyproject.gbs.AluraFlix.dto.request.VideoDTO;
 import studyproject.gbs.AluraFlix.dto.response.CategoryResponse;
-import studyproject.gbs.AluraFlix.dto.response.VideoResponse;
 import studyproject.gbs.AluraFlix.exception.CategoryNotFoundException;
 import studyproject.gbs.AluraFlix.service.CategoryService;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/categories")
@@ -29,7 +27,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) throws CategoryNotFoundException {
+    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) throws  CategoryNotFoundException{
         return service.findById(id);
     }
 
@@ -40,18 +38,18 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CategoryDTO> updateCategory(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO)
-            throws CategoryNotFoundException {
+            throws  CategoryNotFoundException {
         return service.updateCategory(id, categoryDTO);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CategoryResponse> deleteCategoryById(@PathVariable Long id) throws CategoryNotFoundException {
+    public ResponseEntity<CategoryResponse> deleteCategoryById(@PathVariable Long id) throws  CategoryNotFoundException {
         return service.deleteCategoryById(id);
     }
 
     @GetMapping("/{id}/videos")
     public Page<VideoDTO> findVideosPerCategory(@PathVariable Long id, @PageableDefault(page = 0, size = 5) Pageable pageable)
-            throws CategoryNotFoundException {
+            throws  CategoryNotFoundException{
         return service.findVideosPerCategory(id, pageable);
     }
 }

@@ -13,23 +13,18 @@ import studyproject.gbs.AluraFlix.entity.Category;
 import studyproject.gbs.AluraFlix.entity.Video;
 import studyproject.gbs.AluraFlix.exception.CategoryNotFoundException;
 import studyproject.gbs.AluraFlix.exception.VideoNotFoundException;
-import studyproject.gbs.AluraFlix.repository.CategoryRepository;
 import studyproject.gbs.AluraFlix.repository.VideoRepository;
+import studyproject.gbs.AluraFlix.util.verifications.Verifications;
 
 import java.net.URI;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor()
 public class VideoService {
 
-
     @Autowired
     private VideoRepository repository;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private Verifications verifications;
 
     public Page<VideoDTO> listAll(Pageable pageable) {
 
@@ -39,14 +34,14 @@ public class VideoService {
 
     public ResponseEntity<VideoDTO> findById(Long id) throws VideoNotFoundException {
 
-        Video video = verifyIfExists(id);
+        Video video = verifications.verifyVideo(id);
         return ResponseEntity.ok(new VideoDTO(video));
     }
 
     public ResponseEntity<VideoDTO> createVideo(VideoDTO videoDTO, UriComponentsBuilder uriBuilder) throws CategoryNotFoundException {
 
         Video video = new Video();
-        Category category = verifyIfCategoryExists(videoDTO.getCategoryId());
+        Category category = verifications.verifyCategory(videoDTO.getCategoryId());
         video.toVideo(videoDTO);
         video.setCategory(category);
         Video savedVideo = repository.save(video);
@@ -58,8 +53,8 @@ public class VideoService {
     public ResponseEntity<VideoResponse> updateVideo(Long id, VideoDTO videoDTO)
             throws VideoNotFoundException, CategoryNotFoundException {
 
-        Video video = verifyIfExists(id);
-        Category category = verifyIfCategoryExists(videoDTO.getCategoryId());
+        Video video = verifications.verifyVideo(id);
+        Category category = verifications.verifyCategory(videoDTO.getCategoryId());
         video.toVideo(videoDTO);
         video.setCategory(category);
         repository.save(video);
@@ -69,7 +64,7 @@ public class VideoService {
 
     public ResponseEntity<VideoResponse> deleteVideoById(Long id) throws VideoNotFoundException {
 
-        verifyIfExists(id);
+        verifications.verifyVideo(id);
         repository.deleteById(id);
         return setMessageResponse("Deleted video with ID ", id);
     }
@@ -82,15 +77,5 @@ public class VideoService {
 
     private ResponseEntity<VideoResponse> setMessageResponse(String message, Long id) {
         return ResponseEntity.ok(VideoResponse.builder().message(message + id).build());
-    }
-
-    private Video verifyIfExists(Long id) throws VideoNotFoundException {
-        return repository.findById(id)
-                .orElseThrow(() -> new VideoNotFoundException(id));
-    }
-
-    private Category verifyIfCategoryExists(Long id) throws CategoryNotFoundException {
-        return categoryRepository.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException(id));
     }
 }
