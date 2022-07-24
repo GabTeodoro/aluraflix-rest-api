@@ -1,20 +1,15 @@
 package studyproject.gbs.AluraFlix.service;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import studyproject.gbs.AluraFlix.dto.request.CategoryDTO;
-import studyproject.gbs.AluraFlix.dto.response.CategoryResponse;
+import studyproject.gbs.AluraFlix.infra.dto.request.CategoryDTO;
 import studyproject.gbs.AluraFlix.entity.Category;
 import studyproject.gbs.AluraFlix.repository.CategoryRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.when;
-import static studyproject.gbs.AluraFlix.model.CategoryTest.createFakeDTO;
 
 @ExtendWith(MockitoExtension.class)
 public class CategoryServiceTest {

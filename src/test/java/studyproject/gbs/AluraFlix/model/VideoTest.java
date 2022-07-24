@@ -1,6 +1,6 @@
 package studyproject.gbs.AluraFlix.model;
 
-import studyproject.gbs.AluraFlix.dto.request.VideoDTO;
+import studyproject.gbs.AluraFlix.infra.dto.request.VideoDTO;
 import studyproject.gbs.AluraFlix.entity.Video;
 
 public class VideoTest {
