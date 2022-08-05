@@ -39,3 +39,8 @@
 
 ## Contato
 [LinkedIn](https://www.linkedin.com/in/gabriel-teodoro-25404117b/)
+
+## Autores
+
+| [<img src="https://avatars.githubusercontent.com/GabTeodoro" width=115><br><sub>Gabriel Teodoro</sub>](https://github.com/GabTeodoro)
+| :---: |
