@@ -31,6 +31,7 @@
 
 ## Tecnologias
 * Java 11
+* Maven 3.6.3
 * MySQL
 * Intellij IDEA
 * Clean Architecture
