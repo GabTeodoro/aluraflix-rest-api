@@ -36,6 +36,8 @@
 * Intellij IDEA
 * Clean Architecture
 * Spring Framework
+* JUnit
+* Mockito
 * Postman
 
 ## Contato
