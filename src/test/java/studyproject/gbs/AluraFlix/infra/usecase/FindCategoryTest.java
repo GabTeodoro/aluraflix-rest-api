@@ -68,16 +68,4 @@ class FindCategoryTest {
 
         assertEquals(entity.getStatusCodeValue(), 200);
     }
-
-    @Test
-    void shouldReturnAPage_When_ReceiveAPageable() throws CategoryNotFoundException {
-
-        Page<Category> categoryPage = CategoryFake.returnList();
-        PageRequest page = PageRequest.of(0, 10);
-        Mockito.when(repository.listAllCategories(page)).thenReturn(categoryPage);
-
-        Page<CategoryDTO> pageExecute = service.execute(page);
-
-        assertEquals(categoryPage, pageExecute);
-    }
 }
