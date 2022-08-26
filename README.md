@@ -26,7 +26,7 @@
 - [x] Serviço de busca de vídeo por nome.
 - [x] Criar páginação.
 - [ ] Serviço de autenticação.
-- [ ] Implementação de testes de unidade.
+- [x] Implementação de testes de unidade.
 - [ ] Realizar Deploy.
 
 ## Tecnologias
