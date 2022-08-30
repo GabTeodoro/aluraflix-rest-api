@@ -25,7 +25,7 @@
 - [x] Serviço de busca de vídeo por categoria.
 - [x] Serviço de busca de vídeo por nome.
 - [x] Criar páginação.
-- [ ] Serviço de autenticação.
+- [x] Serviço de autenticação.
 - [x] Implementação de testes de unidade.
 - [ ] Realizar Deploy.
 
