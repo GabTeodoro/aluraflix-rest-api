@@ -18,4 +18,6 @@ public interface VideoRepository {
     Video updateVideo(Video video);
 
     void deleteVideoById(Long id);
+
+    Page<Video> findFreeVideos(Pageable pageable);
 }

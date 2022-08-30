@@ -45,6 +45,11 @@ public class VideoRepositoryImpl implements VideoRepository {
         jpa.deleteById(id);
     }
 
+    @Override
+    public Page<Video> findFreeVideos(Pageable pageable) {
+        return jpa.findFreeVideos(pageable);
+    }
+
     public Page<Video> findByTitle(String title, Pageable pageable) {
 
         return jpa.findByTitle(title, pageable);

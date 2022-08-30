@@ -11,10 +11,7 @@ import studyproject.gbs.AluraFlix.infra.dto.request.VideoDTO;
 import studyproject.gbs.AluraFlix.infra.dto.response.VideoResponse;
 import studyproject.gbs.AluraFlix.infra.util.exception.CategoryNotFoundException;
 import studyproject.gbs.AluraFlix.infra.util.exception.VideoNotFoundException;
-import studyproject.gbs.AluraFlix.usecase.video.CreateVideo;
-import studyproject.gbs.AluraFlix.usecase.video.DeleteVideo;
-import studyproject.gbs.AluraFlix.usecase.video.FindVideo;
-import studyproject.gbs.AluraFlix.usecase.video.UpdateVideo;
+import studyproject.gbs.AluraFlix.usecase.video.*;
 
 import javax.validation.Valid;
 
@@ -27,6 +24,7 @@ public class VideoController {
     private FindVideo find;
     private DeleteVideo delete;
     private UpdateVideo update;
+    private FindFreeVideos freeVideos;
 
     @GetMapping
     public Page<VideoDTO> listAll(@RequestParam(required = false) String search,
@@ -61,5 +59,10 @@ public class VideoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<VideoResponse> deleteVideoById(@PathVariable Long id) throws VideoNotFoundException {
         return delete.execute(id);
+    }
+
+    @GetMapping("/free")
+    public Page<VideoDTO> findFreeVideos(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+        return freeVideos.execute(pageable);
     }
 }

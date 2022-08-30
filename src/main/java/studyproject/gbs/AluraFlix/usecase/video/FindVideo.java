@@ -3,6 +3,7 @@ package studyproject.gbs.AluraFlix.usecase.video;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import studyproject.gbs.AluraFlix.infra.dto.request.VideoDTO;
 import studyproject.gbs.AluraFlix.infra.util.exception.VideoNotFoundException;
 
 public interface FindVideo {
