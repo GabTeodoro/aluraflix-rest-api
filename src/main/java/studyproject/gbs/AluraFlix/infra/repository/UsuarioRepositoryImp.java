@@ -18,4 +18,9 @@ public class UsuarioRepositoryImp implements UsuarioRepository {
     public Optional<Usuario> findUsuarioByEmail(String email) {
         return jpa.findByEmail(email);
     }
+
+    @Override
+    public Optional<Usuario> findUsuarioById(Long id) {
+        return jpa.findById(id);
+    }
 }
